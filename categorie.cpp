@@ -23,11 +23,10 @@ void Categorie::afficherListeTaches()
 void Categorie::calculDuree()
 {
 	list<Tache>::iterator it;
-	Temps tempsnul;
-	dureeTotale = tempsnul; //permet de mettre à 0 la durée totale avant de sommer la durée de toutes les taches
+	int dureeTotale = 0; //permet de mettre à 0 la durée totale avant de sommer la durée de toutes les taches
 	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 	{
-		dureeTotale + (*it).getDuree(); // ajoute la durée de la tache à la variable dureeTotale
+		dureeTotale += (*it).getDuree(); // ajoute la durée de la tache à la variable dureeTotale
 	}
 }
 
@@ -50,8 +49,9 @@ void Categorie::insererTache(Tache nouvTache, unsigned int position)
 				}
 			}
 		}
-		if (listeTaches.size() == 0) {
-			listeTaches.push_front(nouvTache);
+		if (listeTaches.size() == 0) // Cas ou la liste des tache est vide
+		{
+			listeTaches.push_front(nouvTache); // insert le premier élément
 			nouvTache.modifierNumero(1);
 		}
 		calculDuree(); // Permet de mettre à jour la durée total de la catégorie
@@ -63,4 +63,9 @@ void Categorie::insererTache(Tache nouvTache, unsigned int position)
 		cin >> position; // L'utilisateur rentre une position acceptable (si ce n'est pas le cas, il y a une boucle jusqu'à ce qu'il le fasse
 		insererTache(nouvTache, position);  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 	}
+}
+
+void Categorie::supprimerTache(int num)
+{
+
 }
