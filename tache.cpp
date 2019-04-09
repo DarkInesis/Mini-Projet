@@ -1,11 +1,10 @@
 #include "tache.h"
-#include "temps.h"
 
 Tache::Tache()
 {
-	cout << "Saisir nom" << endl;
+	cout << "Saisir nom de la tache" << endl;
 	cin >> nom_;
-	cout << "Saisir la date de début (appuyez sur entrée entre le jour, le mois et l'année" << endl;
+	cout << "Saisir la date de debut (appuyez sur entree entre le jour, le mois et l'annee" << endl;
 	int jour, mois, annee;
 	cin >> jour;
 	dateDebut_.setJour(jour);
@@ -13,7 +12,7 @@ Tache::Tache()
 	dateDebut_.setMois(mois);
 	cin >> annee;
 	dateDebut_.setAnnee(annee);
-	cout << "Saisir la durée (en jour)" << endl;
+	cout << "Saisir la duree (en jour)" << endl;
 	cin >> duree_;
 	Faisable = false;
 	Fait = false;
