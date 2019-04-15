@@ -38,13 +38,18 @@ void Categorie::calculDuree()
 	}
 }
 
-void Categorie::insererTache(Tache nouvTache, unsigned int position)
+void Categorie::insererTache()
 {
+	cout << "Entrer la position ou inserer la Tache" << endl;
+	unsigned int position = 0;
+	cin >> position;
+	
 	list<Tache>::iterator it; // iterateur permettant de parcourir la liste de tâche lors de la recherche de la bonne position
 	list<Tache>::iterator itmodifposition; // iterateur permettant de parcourir le reste de la liste, car on souhaite augmenter de 1 la position de tous les autres taches
 	 
 	if (position <= listeTaches.size() && position>0)
 	{
+		Tache nouvTache;
 		for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 		{
 			if ((*it).getNumero() == position)
@@ -60,8 +65,9 @@ void Categorie::insererTache(Tache nouvTache, unsigned int position)
 		}
 		calculDuree();
 	}
-	if (listeTaches.size() == 0 || position == listeTaches.size()+1) // cas où l'on créer la premiere tache ou lorsque l'on veut mettre la tache à la fin de la liste
+	if ((listeTaches.size() == 0 || position == listeTaches.size()+1)&& position<=listeTaches.size()+1) // cas où l'on créer la premiere tache ou lorsque l'on veut mettre la tache à la fin de la liste
 	{
+		Tache nouvTache;
 		listeTaches.push_back(nouvTache);
 		nouvTache.modifierNumero(listeTaches.size());
 		calculDuree();
@@ -69,26 +75,29 @@ void Categorie::insererTache(Tache nouvTache, unsigned int position)
 	if (position > listeTaches.size()+1)
 	{
 		cout << "Position superieure au nombre total de taches, pour annuler taper -1" << endl;
-		cout << "veuillez saisir une position acceptable (inferieur a " << listeTaches.size() << ")" << endl;
+		cout << "veuillez saisir une position acceptable (inferieur a " << listeTaches.size()+1 << ")" << endl;
 		cin >> position; // L'utilisateur rentre une position acceptable (si ce n'est pas le cas, il y a une boucle jusqu'à ce qu'il le fasse
 		if (position == -1)
 		{
 			cout << "Ajout de la tache annule" << endl;
 		}
 		else {
-			insererTache(nouvTache, position);  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
+			insererTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
 	
 }
 
-void Categorie::supprimerTache(unsigned int position)
+void Categorie::supprimerTache()
 {
-
-	list<Tache>::iterator it; // iterateur permettant de parcourir la liste de tâche lors de la recherche de la bonne position
+	cout << "Entrer la position ou supprimer la Tache" << endl;
+	unsigned int position = 0;
+	cin >> position;
+	
 	
 	if (position < listeTaches.size() && position > 0)
 	{
+		list<Tache>::iterator it; // iterateur permettant de parcourir la liste de tâche lors de la recherche de la bonne position
 		for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 		{
 			if ((*it).getNumero() == position)
@@ -121,7 +130,7 @@ void Categorie::supprimerTache(unsigned int position)
 			cout << "Ajout de la tache annule" << endl;
 		}
 		else {
-			supprimerTache(position);  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
+			supprimerTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
 }
@@ -129,6 +138,7 @@ void Categorie::supprimerTache(unsigned int position)
 void Categorie::afficherCategorie()
 {
 	cout << "Nom de la categorie " << nom_ << endl;
-	cout << "Durée : " << dureeTotale << endl;
+	cout << "Duree : " << dureeTotale << endl;
 	dateDebut.afficherTemps();
 }
+

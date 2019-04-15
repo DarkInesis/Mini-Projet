@@ -1,4 +1,2 @@
-﻿  categorie.cpp
-c:\users\leode\documents\miniprojet\miniprojet\categorie.cpp(56): warning C4018: '>' : incompatibilité signed/unsigned
-c:\users\leode\documents\miniprojet\miniprojet\categorie.cpp(102): warning C4018: '>' : incompatibilité signed/unsigned
+﻿  menu.cpp
   MiniProjet.vcxproj -> C:\Users\leode\Documents\MiniProjet\Debug\MiniProjet.exe

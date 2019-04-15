@@ -17,7 +17,8 @@ public:
 	void afficherListeTaches(); //permet d'afficher les tâches liées à la catégorie
 	void afficherCategorie(); //Affiche le nom, la durée, la date de debut de la catégorie
 	void calculDuree(); // Permet de mettre à jour la durée total des taches de la catégorie
-	void insererTache(Tache nouvTache, unsigned int position); // Permet d'inserer une tâche déja crée dans la catégorie (met à jour la durée totale de la catégorie)
-	void supprimerTache(unsigned int position);
+	void insererTache(); // Permet d'inserer une tâche déja crée dans la catégorie (met à jour la durée totale de la catégorie)
+	void supprimerTache();
+	string getNom() { return nom_; };
 	~Categorie() { listeTaches.clear(); }
 };
