@@ -99,17 +99,16 @@ void menu(Diagramme diagr)
 	case 8 :
 		cout << "Entrer le nom du fichier a charger" << endl;
 		cin >> nomFichierCharge;
-		nomFichierCharge += "txt";
+		nomFichierCharge += ".txt";
 		if (true)
 		{
 			ifstream fichierCharger(nomFichierCharge);
 			if (!fichierCharger.is_open())
 			{
 				cout << "erreur chargement" << endl;
-				menu(diagr);
 			}
 		}
-
+		menu(diagr);
 		break;
 	default:
 		cout << "Nombre rentre invalide, recommencez" << endl;
