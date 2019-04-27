@@ -39,7 +39,6 @@ void Tache::sauver(ofstream& ofs)
 		ofs << Fait << endl;
 		ofs << numero_ << endl;
 		dateDebut_.sauver(ofs);
-		
 	}
 }
 void Tache::charger(ifstream& ifs)

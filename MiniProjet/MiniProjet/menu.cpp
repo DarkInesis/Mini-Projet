@@ -107,6 +107,7 @@ void menu(Diagramme diagr)
 			{
 				cout << "erreur chargement" << endl;
 			}
+			diagr.charger(fichierCharger);
 		}
 		menu(diagr);
 		break;

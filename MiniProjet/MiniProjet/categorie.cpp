@@ -156,7 +156,7 @@ void Categorie::sauver(ofstream& ofs)
 	dateDebut.sauver(ofs);
 	dateFin_.sauver(ofs);
 	list<Tache>::iterator it;
-	ofs << listeTaches.size();
+	ofs << listeTaches.size()<<endl;
 	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 	{
 		(*it).sauver(ofs);

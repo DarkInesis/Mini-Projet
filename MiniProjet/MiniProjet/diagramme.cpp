@@ -63,7 +63,7 @@ void Diagramme::sauver(ofstream& ofs)
 	list<Categorie>::iterator it;
 	for (it = listeCategorie.begin(); it != listeCategorie.end(); it++)
 	{
-		ofs << listeCategorie.size();
+		ofs << listeCategorie.size()<<endl;
 		(*it).sauver(ofs);
 	}
 }
