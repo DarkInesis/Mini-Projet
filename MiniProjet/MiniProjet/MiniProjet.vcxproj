@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="categorie.cpp" />
     <ClCompile Include="diagramme.cpp" />
+    <ClCompile Include="example3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="tache.cpp" />
