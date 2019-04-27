@@ -24,3 +24,26 @@ void Temps::afficherTemps()
 {
 	std::cout << jour_ << "/" << mois_ << "/" << annee_ << std::endl;
 }
+
+Temps Temps::dateFin(int duree,int jourParMois[13])
+{
+	Temps date;
+	int jourfin, moisfin, anneefin;
+	jourfin= duree+jour_;
+	moisfin = mois_;
+	anneefin = annee_;
+	while (jourfin> jourParMois[moisfin])
+	{
+		jourfin -= jourParMois[moisfin];
+		moisfin += 1;
+		if (moisfin == 13)
+		{
+			moisfin = 1;
+			anneefin += 1;
+		}
+	}
+	date.setJour(jourfin);
+	date.setMois(moisfin);
+	date.setAnnee(anneefin);
+	return(date);
+}

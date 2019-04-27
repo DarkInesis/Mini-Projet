@@ -1,5 +1,5 @@
 #include "diagramme.h"
-
+#include <fstream>
 Diagramme::Diagramme()
 {
 	list<Categorie> listeCategorie;
@@ -56,4 +56,25 @@ list<Categorie>::iterator Diagramme::getIteratorCategorie(string nomCategorie)
 		}
 	}
 	return itCategorie;
+}
+
+void Diagramme::sauver(ofstream& ofs)
+{
+	list<Categorie>::iterator it;
+	for (it = listeCategorie.begin(); it != listeCategorie.end(); it++)
+	{
+		ofs << listeCategorie.size();
+		(*it).sauver(ofs);
+	}
+}
+void Diagramme::charger(ifstream& ifs)
+{
+	int tailleListeCategorie = 0;
+	ifs >> tailleListeCategorie;
+	Categorie categorieTemp;
+	for (int i = 0; i < tailleListeCategorie; i++)
+	{
+		categorieTemp.charger(ifs);
+		listeCategorie.push_back(categorieTemp);
+	}
 }

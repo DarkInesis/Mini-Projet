@@ -12,12 +12,14 @@ Categorie::Categorie()
 	dateDebut.setJour(jour);
 	dateDebut.setMois(mois);
 	dateDebut.setAnnee(an);
+	dureeTotale = 0; //permet de mettre à 0 la durée totale
 }
 
 void Categorie::modifierNom(string nom) 
 {
 	nom_ = nom;
 }
+
 void Categorie::afficherListeTaches()
 {
 	list<Tache>::iterator it;
@@ -31,7 +33,7 @@ void Categorie::afficherListeTaches()
 void Categorie::calculDuree()
 {
 	list<Tache>::iterator it;
-	int dureeTotale = 0; //permet de mettre à 0 la durée totale avant de sommer la durée de toutes les taches
+	dureeTotale = 0;
 	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 	{
 		dureeTotale += (*it).getDuree(); // ajoute la durée de la tache à la variable dureeTotale
@@ -44,6 +46,7 @@ void Categorie::insererTache()
 	unsigned int position = 0;
 	cin >> position;
 	
+	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //Contient le nombre de jour par mois (la premiere case est initialisée à -1, car on ne souhaite pas l'utiliser)
 	list<Tache>::iterator it; // iterateur permettant de parcourir la liste de tâche lors de la recherche de la bonne position
 	list<Tache>::iterator itmodifposition; // iterateur permettant de parcourir le reste de la liste, car on souhaite augmenter de 1 la position de tous les autres taches
 	 
@@ -85,7 +88,7 @@ void Categorie::insererTache()
 			insererTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
-	
+	dateFin_ = dateDebut.dateFin(dureeTotale, jourParMois);
 }
 
 void Categorie::supprimerTache()
@@ -94,6 +97,7 @@ void Categorie::supprimerTache()
 	unsigned int position = 0;
 	cin >> position;
 	
+	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //Contient le nombre de jour par mois (la premiere case est initialisée à -1, car on ne souhaite pas l'utiliser)
 	
 	if (position < listeTaches.size() && position > 0)
 	{
@@ -113,12 +117,10 @@ void Categorie::supprimerTache()
 				(*it).modifierNumero((*it).getNumero() - 1);
 			}
 		}
-		calculDuree();
 	}
-	if (position == listeTaches.size()) // cas où l'on créer la premiere tache ou lorsque l'on veut mettre la tache à la fin de la liste
+	if (position == listeTaches.size()) // On supprime la derniere tache
 	{
 		listeTaches.pop_back(); 
-		calculDuree();
 	}
 	if (position<=0 || position > listeTaches.size() + 1)
 	{
@@ -133,12 +135,47 @@ void Categorie::supprimerTache()
 			supprimerTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
+	calculDuree();
+	dateFin_ = dateDebut.dateFin(dureeTotale, jourParMois);
 }
 
 void Categorie::afficherCategorie()
 {
 	cout << "Nom de la categorie " << nom_ << endl;
 	cout << "Duree : " << dureeTotale << endl;
+	cout << "Debut : ";
 	dateDebut.afficherTemps();
+	cout <<"Fin : ";
+	dateFin_.afficherTemps();
 }
 
+void Categorie::sauver(ofstream& ofs)
+{
+	ofs << nom_ << endl;
+	ofs << dureeTotale << endl;
+	dateDebut.sauver(ofs);
+	dateFin_.sauver(ofs);
+	list<Tache>::iterator it;
+	ofs << listeTaches.size();
+	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
+	{
+		(*it).sauver(ofs);
+	}
+}
+
+void Categorie::charger(ifstream& ifs)
+{
+	ifs >> nom_;
+	ifs >> dureeTotale;
+	dateDebut.charger(ifs);
+	dateFin_.charger(ifs);
+	int tailleListeTache = 0;
+	ifs >> tailleListeTache;
+	listeTaches.clear(); // On vide la variable au cas où elle n'était pas vide
+	Tache tacheTemp;
+	for (int i = 0; i < tailleListeTache; i++)
+	{
+		tacheTemp.charger(ifs);
+		listeTaches.push_back(tacheTemp);
+	}
+}

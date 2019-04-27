@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <list>
-
+#include <fstream>
 #include "temps.h"
 
 using namespace std;
@@ -23,5 +23,7 @@ public:
 	int getNumero() { return numero_; }
 	void modifierNumero(int nouvNumero) { numero_ = nouvNumero; }
 	void finTache() { (*tacheSuivante_).Faisable = true; Fait = true; } // lors de la fin de tâche, met à jour l'état fait et rend faisable la prochaine tache
+	void sauver(ofstream& ofs);
+	void charger(ifstream& ifs);
 };
 

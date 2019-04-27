@@ -13,15 +13,19 @@ void afficherMenu()
 	cout << "5) Suprimer une categorie" << endl;
 	cout << "6) Suprimer une tache" << endl;
 	cout << "7) Quitter" << endl;
+	cout << "8) Charger" << endl;
 }
 
 void menu(Diagramme diagr)
 {
+
 	afficherMenu();
 	int choix = 0;
 	cin >> choix;
 	string nomCategorie="";
 	list<Categorie>::iterator iteratorCategorie;
+	string reponsefermeture;
+	string nomFichierCharge;
 	switch (choix)
 	{
 	case 1:
@@ -69,6 +73,43 @@ void menu(Diagramme diagr)
 		menu(diagr);
 		break;
 	case 7 :
+		cout << "Voulez-vous sauvegarder votre fichier ? (y/n)" << endl;
+		cin >> reponsefermeture;
+		if (reponsefermeture == "y" || reponsefermeture =="Y"|| reponsefermeture =="o"|| reponsefermeture =="O")
+		{
+			cout << "Entrer le nom du fichier de sauvegarde" << endl;
+			string nomSauvegarde;
+			cin >> nomSauvegarde;
+			nomSauvegarde += ".txt";
+			ofstream fichierSauvegarde(nomSauvegarde);
+			diagr.sauver(fichierSauvegarde);
+			break;
+		}
+		else
+			if (reponsefermeture != "n" && reponsefermeture != "N")
+			{
+				cout << "Erreur : touche non attribuee" << endl;
+				menu(diagr);
+				break;
+			}
+			else
+			{
+				break;
+			}
+	case 8 :
+		cout << "Entrer le nom du fichier a charger" << endl;
+		cin >> nomFichierCharge;
+		nomFichierCharge += "txt";
+		if (true)
+		{
+			ifstream fichierCharger(nomFichierCharge);
+			if (!fichierCharger.is_open())
+			{
+				cout << "erreur chargement" << endl;
+				menu(diagr);
+			}
+		}
+
 		break;
 	default:
 		cout << "Nombre rentre invalide, recommencez" << endl;

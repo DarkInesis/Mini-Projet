@@ -27,3 +27,31 @@ void Tache::afficherTache()    // Affiche le nom de la tache, sa date de début e
 	cout << "duree : " << duree_ << endl;
 	cout << "Numero : " << numero_ << endl;
 }
+
+void Tache::sauver(ofstream& ofs)
+{
+	if (!ofs.is_open()) cout << "erreur ouverture" << endl;
+	else
+	{
+		ofs << nom_ << endl;
+		ofs << duree_ << endl;
+		ofs << Faisable << endl;
+		ofs << Fait << endl;
+		ofs << numero_ << endl;
+		dateDebut_.sauver(ofs);
+		
+	}
+}
+void Tache::charger(ifstream& ifs)
+{
+	if (!ifs.is_open()) cout << "erreur ouverture" << endl;
+	else
+	{
+		ifs >> nom_;
+		ifs >> duree_;
+		ifs >> Faisable;
+		ifs >> Fait;
+		ifs >> numero_;
+		dateDebut_.charger(ifs);
+	}
+}
