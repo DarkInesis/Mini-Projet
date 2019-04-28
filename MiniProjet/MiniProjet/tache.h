@@ -10,13 +10,14 @@ using namespace std;
 class Tache {
 	string nom_;
 	Temps dateDebut_;
+	Temps dateFin_;
 	int duree_;
 	Tache* tacheSuivante_;
 	bool Faisable;
 	bool Fait;
 	int numero_;
 public:
-	Tache(); //constructeur
+	Tache(bool estChargee=false); //constructeur
 	~Tache() { delete[] tacheSuivante_; } // destructeur
 	void afficherTache();  // affiche la tache (nom/date debut/duree/numéro)
 	int getDuree() { return duree_; } 

@@ -14,7 +14,7 @@ public:
 	void setMois(int mois) { mois_ = mois; }
 	void setAnnee(int annee) {annee_ = annee; }
 	void afficherTemps();
-	Temps dateFin(int duree, int jourParMois[13]); // Permet de calculer la date de fin
+	Temps dateFin(int duree); // Permet de calculer la date de fin
 	void sauver(ofstream& ofs) { ofs << jour_ << endl; ofs << mois_ << endl; ofs << annee_ << endl; }
 	void charger(ifstream& ifs) { ifs >> jour_; ifs >> mois_; ifs >> annee_; }
 };

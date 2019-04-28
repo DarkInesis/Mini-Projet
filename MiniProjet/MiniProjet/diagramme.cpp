@@ -61,9 +61,9 @@ list<Categorie>::iterator Diagramme::getIteratorCategorie(string nomCategorie)
 void Diagramme::sauver(ofstream& ofs)
 {
 	list<Categorie>::iterator it;
+	ofs << listeCategorie.size() << endl;
 	for (it = listeCategorie.begin(); it != listeCategorie.end(); it++)
 	{
-		ofs << listeCategorie.size()<<endl;
 		(*it).sauver(ofs);
 	}
 }
@@ -71,7 +71,7 @@ void Diagramme::charger(ifstream& ifs)
 {
 	int tailleListeCategorie = 0;
 	ifs >> tailleListeCategorie;
-	Categorie categorieTemp;
+	Categorie categorieTemp(true);
 	for (int i = 0; i < tailleListeCategorie; i++)
 	{
 		categorieTemp.charger(ifs);

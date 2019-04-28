@@ -1,18 +1,29 @@
 #include "categorie.h"
 
-Categorie::Categorie()
+Categorie::Categorie(bool estChargee)
 {
-	cout << "Nom  de la categorie :" << endl;
-	cin >> nom_;
-	cout << "Date de debut (jour puis mois puis annee) :" << endl;
-	int jour, mois, an;
-	cin >>jour;
-	cin >> mois;
-	cin >> an;
-	dateDebut.setJour(jour);
-	dateDebut.setMois(mois);
-	dateDebut.setAnnee(an);
-	dureeTotale = 0; //permet de mettre à 0 la durée totale
+	if (!estChargee)
+	{
+		cout << "Nom  de la categorie :" << endl;
+		cin >> nom_;
+		cout << "Date de debut (jour puis mois puis annee) :" << endl;
+		int jour, mois, an;
+		cin >> jour;
+		cin >> mois;
+		cin >> an;
+		dateDebut.setJour(jour);
+		dateDebut.setMois(mois);
+		dateDebut.setAnnee(an);
+		dureeTotale = 0; //permet de mettre à 0 la durée totale
+	}
+	else
+	{
+		nom_ = "";
+		dateDebut.setJour(0);
+		dateDebut.setMois(0);
+		dateDebut.setAnnee(0);
+		dureeTotale = 0;
+	}
 }
 
 void Categorie::modifierNom(string nom) 
@@ -45,8 +56,6 @@ void Categorie::insererTache()
 	cout << "Entrer la position ou inserer la Tache" << endl;
 	unsigned int position = 0;
 	cin >> position;
-	
-	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //Contient le nombre de jour par mois (la premiere case est initialisée à -1, car on ne souhaite pas l'utiliser)
 	list<Tache>::iterator it; // iterateur permettant de parcourir la liste de tâche lors de la recherche de la bonne position
 	list<Tache>::iterator itmodifposition; // iterateur permettant de parcourir le reste de la liste, car on souhaite augmenter de 1 la position de tous les autres taches
 	 
@@ -55,16 +64,16 @@ void Categorie::insererTache()
 		Tache nouvTache;
 		for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 		{
-			if ((*it).getNumero() == position)
-			{
-				(*it).modifierNumero(position + 1);
-				listeTaches.insert(it, nouvTache);
-				nouvTache.modifierNumero(position);
-			}
-			if ((*it).getNumero() > position+1)
+			if ((*it).getNumero() >= position)
 			{
 				(*it).modifierNumero((*it).getNumero() + 1);
 			}
+			if((*it).getNumero() == position)
+			{
+				listeTaches.insert(it, nouvTache);
+				nouvTache.modifierNumero(position);
+			}
+
 		}
 		calculDuree();
 	}
@@ -88,7 +97,7 @@ void Categorie::insererTache()
 			insererTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
-	dateFin_ = dateDebut.dateFin(dureeTotale, jourParMois);
+	dateFin_ = dateDebut.dateFin(dureeTotale);
 }
 
 void Categorie::supprimerTache()
@@ -136,7 +145,7 @@ void Categorie::supprimerTache()
 		}
 	}
 	calculDuree();
-	dateFin_ = dateDebut.dateFin(dureeTotale, jourParMois);
+	dateFin_ = dateDebut.dateFin(dureeTotale);
 }
 
 void Categorie::afficherCategorie()
@@ -172,7 +181,7 @@ void Categorie::charger(ifstream& ifs)
 	int tailleListeTache = 0;
 	ifs >> tailleListeTache;
 	listeTaches.clear(); // On vide la variable au cas où elle n'était pas vide
-	Tache tacheTemp;
+	Tache tacheTemp(true);
 	for (int i = 0; i < tailleListeTache; i++)
 	{
 		tacheTemp.charger(ifs);

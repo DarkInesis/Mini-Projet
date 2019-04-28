@@ -25,8 +25,9 @@ void Temps::afficherTemps()
 	std::cout << jour_ << "/" << mois_ << "/" << annee_ << std::endl;
 }
 
-Temps Temps::dateFin(int duree,int jourParMois[13])
+Temps Temps::dateFin(int duree)
 {
+	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //Contient le nombre de jour par mois (la premiere case est initialisée à -1, car on ne souhaite pas l'utiliser)
 	Temps date;
 	int jourfin, moisfin, anneefin;
 	jourfin= duree+jour_;

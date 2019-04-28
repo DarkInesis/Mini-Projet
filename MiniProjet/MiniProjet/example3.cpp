@@ -75,6 +75,5 @@
 //    // Handle window resize
 //    if (disp.is_resized()) disp.resize();
 //    }
-//    
 //  return 0;
 //}

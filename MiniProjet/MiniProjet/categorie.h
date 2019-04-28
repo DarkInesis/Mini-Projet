@@ -13,7 +13,7 @@ class Categorie  //Creation de la classe catégorie
 	Temps dateFin_;
 	list<Tache> listeTaches;  // est la liste des tâches associées à une catégorie
 public:
-	Categorie();  // constructeur
+	Categorie(bool estChargee=false);  // constructeur
 	void modifierNom(string nom); //permet de modifier le nom de la categorie
 	void afficherListeTaches(); //permet d'afficher les tâches liées à la catégorie
 	void afficherCategorie(); //Affiche le nom, la durée, la date de debut de la catégorie
