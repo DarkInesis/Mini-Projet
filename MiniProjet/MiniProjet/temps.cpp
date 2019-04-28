@@ -48,3 +48,77 @@ Temps Temps::dateFin(int duree)
 	date.setAnnee(anneefin);
 	return(date);
 }
+
+bool Temps::operator>(const Temps& t)
+{
+	int jourT = t.jour_, moisT = t.mois_, anneeT = t.annee_;
+	if (anneeT < annee_)
+	{
+		return true;
+	}
+	else
+	{
+		if (moisT < mois_)
+		{
+			return true;
+		}
+		else
+		{
+			if (jourT < jour_)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+}
+
+bool Temps::operator<(const Temps& t)
+{
+	int jourT = t.jour_, moisT = t.mois_, anneeT = t.annee_;
+	if (anneeT > annee_)
+	{
+		return true;
+	}
+	else
+	{
+		if (moisT > mois_)
+		{
+			return true;
+		}
+		else
+		{
+			if (jourT > jour_)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+}
+
+int Temps::operator-(const Temps& t) { // t est la plus grande AUTEUR AMINE 
+	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int duree = 0;
+	int duree1 = 0;
+	int duree2 = 0;
+	duree1 += annee_ * 365;
+	duree2 += t.annee_ * 365;
+	for (int i = 0; i <= 12; i++) {
+		if (i <= mois_) {
+			duree1 += jourParMois[i];
+		}
+		if (i <= t.mois_) {
+			duree2 += jourParMois[i];
+		}
+	}
+	duree1 += jour_;
+	duree2 += t.jour_;
+	duree = duree1 - duree2;
+}

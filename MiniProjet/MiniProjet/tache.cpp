@@ -19,7 +19,7 @@ Tache::Tache(bool estChargee)
 		Faisable = false;
 		Fait = false;
 		numero_ = 1;
-		dateFin_ = dateDebut_.dateFin(duree_);
+		dateFin_ = calculDateFin();
 	}
 	else
 	{
@@ -42,6 +42,7 @@ void Tache::afficherTache()    // Affiche le nom de la tache, sa date de début e
 	dateDebut_.afficherTemps();
 	cout << "duree : " << duree_ << endl;
 	cout << "Numero : " << numero_ << endl;
+	
 }
 
 void Tache::sauver(ofstream& ofs)
@@ -71,4 +72,54 @@ void Tache::charger(ifstream& ifs)
 		dateDebut_.charger(ifs);
 		dateFin_.charger(ifs);
 	}
+}
+
+void Tache::menumodifTache()
+{
+	cout << "Que voulez vous modifier ? " << endl;
+	cout << "1) Nom" << endl;
+	cout << "2) Date debut" << endl;
+	cout << "3) Duree" << endl;
+	int choix;
+	cin >> choix;
+	switch (choix)
+	{
+	case 1:
+		if (true)
+		{
+			
+			cin >> nom_;
+		}
+		break;
+	case 2:
+		if (true)
+		{
+			cout << "Entrer la date (Jour puis mois puis annee)" << endl;
+			int jour, mois, annee;
+			cin >> jour >> mois >> annee;
+			dateDebut_.setAnnee(annee);
+			dateDebut_.setMois(mois);
+			dateDebut_.setJour(jour);
+			dateFin_ = calculDateFin();
+		}
+		break;
+	case 3:
+		if (true)
+		{
+			cin >> duree_;
+		}
+		break;
+	default:
+		break;
+	}
+
+}
+
+void Tache::imgTache() {
+	string temp = nom_;
+	char* tab = new char[temp.length() + 1];
+	strcpy_s(tab, temp.length() + 1, temp.c_str());
+	imageTache.resize(duree_, 100);
+	const unsigned char black[] = { 0,0,0 };
+	imageTache.draw_text(20, 20, tab, black);
 }

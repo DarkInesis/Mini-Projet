@@ -26,10 +26,6 @@ Categorie::Categorie(bool estChargee)
 	}
 }
 
-void Categorie::modifierNom(string nom) 
-{
-	nom_ = nom;
-}
 
 void Categorie::afficherListeTaches()
 {
@@ -97,7 +93,7 @@ void Categorie::insererTache()
 			insererTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
-	dateFin_ = dateDebut.dateFin(dureeTotale);
+	changementDates();
 }
 
 void Categorie::supprimerTache()
@@ -145,7 +141,7 @@ void Categorie::supprimerTache()
 		}
 	}
 	calculDuree();
-	dateFin_ = dateDebut.dateFin(dureeTotale);
+	changementDates();
 }
 
 void Categorie::afficherCategorie()
@@ -187,4 +183,32 @@ void Categorie::charger(ifstream& ifs)
 		tacheTemp.charger(ifs);
 		listeTaches.push_back(tacheTemp);
 	}
+}
+
+void Categorie::changementDates()
+{
+	list<Tache>::iterator it;
+	it =  listeTaches.begin();
+	dateDebut = (*it).getDebut();
+	dateFin_ = (*it).getFin();
+	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
+	{
+		if ((*it).getDebut() < dateDebut)
+		{
+			dateDebut = (*it).getDebut();
+		}
+		if ((*it).getFin() > dateFin_)
+		{
+			dateFin_ = (*it).getFin();
+		}
+	}
+}
+
+void Categorie::imgCategorie() {
+	string temp = nom_;
+	char* tab = new char[temp.length() + 1];
+	strcpy_s(tab, temp.length() + 1, temp.c_str());
+	imageCategorie.resize(dureeTotale, 100);
+	const unsigned char black[] = { 0,0,0 };
+	imageCategorie.draw_text(20, 20, tab, black);
 }

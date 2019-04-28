@@ -56,6 +56,9 @@
     <ClCompile Include="example3.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="newtache.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="test_kfa2_geforce_gtx_1070_hof_box_3.ppm">

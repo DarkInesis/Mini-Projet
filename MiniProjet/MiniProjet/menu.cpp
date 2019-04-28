@@ -12,8 +12,9 @@ void afficherMenu()
 	cout << "4) Ajouter une tache a une categorie" << endl;
 	cout << "5) Suprimer une categorie" << endl;
 	cout << "6) Suprimer une tache" << endl;
-	cout << "7) Quitter" << endl;
-	cout << "8) Charger" << endl;
+	cout << "7) Modifier tache" << endl;
+	cout << "8) Quitter" << endl;
+	cout << "9) Charger" << endl;
 }
 
 void menu(Diagramme diagr)
@@ -23,7 +24,6 @@ void menu(Diagramme diagr)
 	int choix = 0;
 	cin >> choix;
 	string nomCategorie="";
-	list<Categorie>::iterator iteratorCategorie;
 	string reponsefermeture;
 	string nomFichierCharge;
 	switch (choix)
@@ -52,8 +52,7 @@ void menu(Diagramme diagr)
 		system("cls");
 		cout << "Entrer le nom de la categorie ou ajouter la tache" << endl;
 		cin >> nomCategorie;
-		iteratorCategorie=diagr.getIteratorCategorie(nomCategorie);
-		(*iteratorCategorie).insererTache();
+		diagr.insererTacheCategorie(nomCategorie);
 		system("pause");
 		menu(diagr);
 		break;
@@ -67,12 +66,13 @@ void menu(Diagramme diagr)
 		system("cls");
 		cout << "Entrer le nom de la categorie ou enlever la tache" << endl;
 		cin >> nomCategorie;
-		iteratorCategorie = diagr.getIteratorCategorie(nomCategorie);
-		(*iteratorCategorie).supprimerTache();
-		system("pause");
+		diagr.supprimerTacheCategorie(nomCategorie);
 		menu(diagr);
 		break;
 	case 7 :
+		diagr.modifierTache();
+		break;
+	case 8 :
 		cout << "Voulez-vous sauvegarder votre fichier ? (y/n)" << endl;
 		cin >> reponsefermeture;
 		if (reponsefermeture == "y" || reponsefermeture =="Y"|| reponsefermeture =="o"|| reponsefermeture =="O")
@@ -96,7 +96,7 @@ void menu(Diagramme diagr)
 			{
 				break;
 			}
-	case 8 :
+	case 9 :
 		cout << "Entrer le nom du fichier a charger" << endl;
 		cin >> nomFichierCharge;
 		nomFichierCharge += ".txt";
