@@ -1,0 +1,10 @@
+﻿  categorie.cpp
+C:\Users\leode\Documents\MiniProjet\MiniProjet\categorie.cpp(63): warning C4018: '>=' : incompatibilité signed/unsigned
+C:\Users\leode\Documents\MiniProjet\MiniProjet\categorie.cpp(120): warning C4018: '>' : incompatibilité signed/unsigned
+  diagramme.cpp
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(188): error C3861: 'menumodifTache' : identificateur introuvable
+  main.cpp
+  menu.cpp
+  tache.cpp
+  temps.cpp
+  Génération de code en cours...
