@@ -131,7 +131,6 @@
     <ClCompile Include="example3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
-    <ClCompile Include="newtache.cpp" />
     <ClCompile Include="tache.cpp" />
     <ClCompile Include="temps.cpp" />
   </ItemGroup>

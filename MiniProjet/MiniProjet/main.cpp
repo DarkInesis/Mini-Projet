@@ -1,17 +1,5 @@
 #include <iostream>
 #include <string>
-using namespace std;
-bool testReponse(string reponse)
-{
-	if (reponse == "y" || reponse == "Y" || reponse == "o" || reponse == "O")
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 #include <list>
 #include "CImg.h"
 #include "tache.h"

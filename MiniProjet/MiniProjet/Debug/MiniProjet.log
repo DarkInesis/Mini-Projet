@@ -1,10 +1,12 @@
-﻿  categorie.cpp
-C:\Users\leode\Documents\MiniProjet\MiniProjet\categorie.cpp(63): warning C4018: '>=' : incompatibilité signed/unsigned
-C:\Users\leode\Documents\MiniProjet\MiniProjet\categorie.cpp(120): warning C4018: '>' : incompatibilité signed/unsigned
-  diagramme.cpp
-C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(188): error C3861: 'menumodifTache' : identificateur introuvable
+﻿  diagramme.cpp
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(219): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(220): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(221): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(224): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(226): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(238): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\leode\Documents\MiniProjet\MiniProjet\diagramme.cpp(241): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
   main.cpp
   menu.cpp
-  tache.cpp
-  temps.cpp
   Génération de code en cours...
+  MiniProjet.vcxproj -> C:\Users\leode\Documents\MiniProjet\Debug\MiniProjet.exe

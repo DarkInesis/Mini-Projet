@@ -45,6 +45,7 @@ void menu(Diagramme diagr)
 	case 3 :
 		system("cls");
 		diagr.insererCategorie();
+		
 		system("pause");
 		menu(diagr);
 		break;
@@ -53,6 +54,7 @@ void menu(Diagramme diagr)
 		cout << "Entrer le nom de la categorie ou ajouter la tache" << endl;
 		cin >> nomCategorie;
 		diagr.insererTacheCategorie(nomCategorie);
+		
 		system("pause");
 		menu(diagr);
 		break;
@@ -76,6 +78,7 @@ void menu(Diagramme diagr)
 		cout << "Voulez-vous sauvegarder votre fichier ? (y/n)" << endl;
 		cin >> reponsefermeture;
 		if (reponsefermeture == "y" || reponsefermeture =="Y"|| reponsefermeture =="o"|| reponsefermeture =="O")
+		
 		{
 			cout << "Entrer le nom du fichier de sauvegarde" << endl;
 			string nomSauvegarde;

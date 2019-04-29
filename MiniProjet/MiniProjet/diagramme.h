@@ -6,8 +6,19 @@ class Diagramme
 	list<Categorie> listeCategorie;
 	Temps dateDebut;
 	Temps dateFin;
-	int duree;
-	CImg <unsigned char> frise;
+	int duree=0;
+	int echelle=0;
+	int nombreElements=0;
+
+	CImg<unsigned char> imgDiagramme;
+
+	CImg<unsigned char> imgMenu;
+	int positionMenu[2] = { 0,0 };
+	CImg <unsigned char> imgFrise;
+	int positionFrise[2] = { imgMenu.height(), 0 };
+	CImg<unsigned char> imgCalendrier;
+	int positionCalendrier[2] = { positionFrise[0], imgFrise.height() };
+
 
 public:
 	Diagramme();
@@ -22,7 +33,14 @@ public:
 	void charger(ifstream& ifs);
 	void modifierTache();
 
+	int getNbElement() { return nombreElements; }
+	void setNbElement(int nbElements) { nombreElements = nbElements; }
 
-	void calculDuree() { duree=dateDebut - dateFin; }
+	void calculDuree() { duree = dateDebut - dateFin; };
+
+
+	void refreshFrise();
+	void refreshMenu();
+	
 };
 

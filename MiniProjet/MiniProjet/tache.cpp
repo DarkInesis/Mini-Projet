@@ -33,6 +33,7 @@ Tache::Tache(bool estChargee)
 		numero_ = 0;
 		dateFin_ = dateDebut_.dateFin(duree_);
 	}
+	imgTache();
 }
 
 void Tache::afficherTache()    // Affiche le nom de la tache, sa date de début et sa durée (format JJ/MM/AA)

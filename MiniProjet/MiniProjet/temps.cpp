@@ -121,4 +121,5 @@ int Temps::operator-(const Temps& t) { // t est la plus grande AUTEUR AMINE
 	duree1 += jour_;
 	duree2 += t.jour_;
 	duree = duree1 - duree2;
+	return duree;
 }

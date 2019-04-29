@@ -72,6 +72,7 @@ void Categorie::insererTache()
 
 		}
 		calculDuree();
+
 	}
 	if ((listeTaches.size() == 0 || position == listeTaches.size()+1)&& position<=listeTaches.size()+1) // cas où l'on créer la premiere tache ou lorsque l'on veut mettre la tache à la fin de la liste
 	{
