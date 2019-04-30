@@ -20,7 +20,6 @@ public:
 	void modifierNom(string nom) {nom_ = nom; } //permet de modifier le nom de la categorie
 	void afficherListeTaches(); //permet d'afficher les tâches liées à la catégorie
 	void afficherCategorie(); //Affiche le nom, la durée, la date de debut de la catégorie
-	void calculDuree(); // Permet de mettre à jour la durée total des taches de la catégorie
 	void insererTache(); // Permet d'inserer une tâche déja crée dans la catégorie (met à jour la durée totale de la catégorie)
 	void supprimerTache(); //Permet de supprimer une tache en sélectionnant la catégorie
 	string getNom() { return nom_; }; // Retourne le nom de la catégorie

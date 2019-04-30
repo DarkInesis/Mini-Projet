@@ -25,7 +25,7 @@ public:
 	void changementDates();
 	void afficherDiagramme();
 	void afficherTacheCategorie(string nomCategorie);
-	void insererCategorie() { Categorie nouvCategorie; listeCategorie.push_back(nouvCategorie); } // Permet d'inserer une catégorie déja crée
+	void insererCategorie() { Categorie nouvCategorie; listeCategorie.push_back(nouvCategorie); nombreElements += 1; } // Permet d'inserer une catégorie déja crée
 	void supprimerCategorie();
 	void insererTacheCategorie(string nomCategorie);
 	void supprimerTacheCategorie(string nomCategorie);
@@ -41,6 +41,10 @@ public:
 
 	void refreshFrise();
 	void refreshMenu();
+	void refreshCalendrier();
+	void refreshDiagramme();
+
+	CImg<unsigned char> getImgDiagramme() { return imgDiagramme; }
 	
 };
 

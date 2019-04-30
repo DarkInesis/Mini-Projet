@@ -16,24 +16,30 @@ bool testReponse(string reponse)
 
 Diagramme::Diagramme()
 {
-
+	imgCalendrier(0, 0, 1, 3);
+	imgDiagramme(1920, 1080, 1, 3);
+	imgFrise(0, 0, 1, 3);
+	imgMenu(0, 0, 1, 3);
 }
 
 void Diagramme::changementDates() // Permet de mettre à jour la date de debut et de fin du diagramme
 {
 	list<Categorie>::iterator it;
-	it = listeCategorie.begin();
-	dateDebut = (*it).getDebut();
-	dateFin = (*it).getFin();
-	for (it = listeCategorie.begin(); it != listeCategorie.end(); it++)
+	if (!listeCategorie.empty())
 	{
-		if ((*it).getDebut() < dateDebut)
+		it = listeCategorie.begin();
+		dateDebut = (*it).getDebut();
+		dateFin = (*it).getFin();
+		for (it = listeCategorie.begin(); it != listeCategorie.end(); it++)
 		{
-			dateDebut = (*it).getDebut();
-		}
-		if ((*it).getFin() > dateFin)
-		{
-			dateFin = (*it).getFin();
+			if ((*it).getDebut() < dateDebut)
+			{
+				dateDebut = (*it).getDebut();
+			}
+			if ((*it).getFin() > dateFin)
+			{
+				dateFin = (*it).getFin();
+			}
 		}
 	}
 }
@@ -47,19 +53,19 @@ void Diagramme::afficherDiagramme()
 }
 void Diagramme::afficherTacheCategorie(string nomCategorie)
 {
+	bool estValide = false;
 	list<Categorie>::iterator itCategorie; // permet de parcourir la liste des catégorie
 	for (itCategorie = listeCategorie.begin(); itCategorie != listeCategorie.end(); itCategorie++)
 	{
 		if ((*itCategorie).getNom() == nomCategorie)
 		{
+			estValide = true;
 			break; // On arrete de parcourir la liste lorsque l'on a trouvé le bon nom.
 		}
 	}
-	if (itCategorie == listeCategorie.end()) // Cas ou le nom ne se trouve pas dans la liste
+	if (!estValide) // Cas ou le nom ne se trouve pas dans la liste
 	{
 		cout << "Nom entre invalide" << endl;
-		system("pause");
-		system("cls");
 	}
 	// A partir d'ici, itCategorie correspond au pointeur vers la catégorie souhaitée
 	else {
@@ -74,16 +80,18 @@ void Diagramme::supprimerCategorie()
 	string nomCategorie;
 	cin>>nomCategorie;
 	list<Categorie>::iterator itCategorie; // permet de parcourir la liste des catégorie
+	bool aSupprimee = false;
 	for (itCategorie = listeCategorie.begin(); itCategorie != listeCategorie.end(); itCategorie++)
 	{
 		if ((*itCategorie).getNom() == nomCategorie)
 		{
-			listeCategorie.erase(itCategorie);
+			itCategorie=listeCategorie.erase(itCategorie);
 			setNbElement(nombreElements - 1);
+			aSupprimee = true;
 			break;
 		}
 	}
-	if ( itCategorie == listeCategorie.end()) // Cas ou le nom ne se trouve pas dans la liste
+	if ( itCategorie == listeCategorie.end() && aSupprimee==false) // Cas ou le nom ne se trouve pas dans la liste
 	{
 		cout << "Nom entre invalide" << endl;
 		system("pause");
@@ -107,8 +115,6 @@ void Diagramme::insererTacheCategorie(string nomCategorie)
 	if (iteratorCategorie == listeCategorie.end()) // Cas ou le nom ne se trouve pas dans la liste
 	{
 		cout << "Nom entre invalide" << endl;
-		system("pause");
-		system("cls");
 	}
 	else
 	{
@@ -119,6 +125,7 @@ void Diagramme::insererTacheCategorie(string nomCategorie)
 void Diagramme::supprimerTacheCategorie(string nomCategorie)
 {
 	list<Categorie>::iterator iteratorCategorie;
+	
 	for (iteratorCategorie = listeCategorie.begin(); iteratorCategorie != listeCategorie.end(); iteratorCategorie++)
 	{
 		if ((*iteratorCategorie).getNom() == nomCategorie)
@@ -128,16 +135,19 @@ void Diagramme::supprimerTacheCategorie(string nomCategorie)
 		
 	}
 	if (iteratorCategorie == listeCategorie.end()) // Cas ou le nom ne se trouve pas dans la liste
-	{
-		cout << "Nom entre invalide" << endl;
-		system("pause");
-		system("cls");
-	}
+		{
+			cout << "Nom entre invalide" << endl;
+			system("pause");
+			system("cls");
+		}
 	else
-	{
-		(*iteratorCategorie).supprimerTache();
-		setNbElement(nombreElements -1);
-	}
+		{
+		if (!(*iteratorCategorie).getListeTache().empty())
+		{
+			(*iteratorCategorie).supprimerTache();
+			setNbElement(nombreElements - 1);
+		}
+		}
 }
 
 void Diagramme::sauver(ofstream& ofs)
@@ -165,7 +175,9 @@ void Diagramme::modifierTache()
 {
 		cout << "Entrez le nom de la categorie ou vous voulez modifier la tache" << endl;
 		string nomCategorie;
-		cin >> nomCategorie;
+		// Vide le tampon du clavier.
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, nomCategorie);
 		list<Categorie>::iterator itCategorie; // permet de parcourir la liste des catégorie
 		for (itCategorie = listeCategorie.begin(); itCategorie != listeCategorie.end(); itCategorie++)
 		{
@@ -173,7 +185,9 @@ void Diagramme::modifierTache()
 			{
 				cout << "Entrer le nom de la tache à modifier " << endl;
 				string nomTacheModif;
-				cin >> nomTacheModif;
+				// Vide le tampon du clavier.
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				getline(cin, nomTacheModif);
 				list<Tache> ListeTacheTemp = (*itCategorie).getListeTache();
 				list<Tache>::iterator itTache;
 
@@ -188,7 +202,6 @@ void Diagramme::modifierTache()
 						{
 							(*itTache).menumodifTache();
 							(*itCategorie).changementDates();
-							(*itCategorie).calculDuree();
 						}
 						
 						break;
@@ -218,11 +231,17 @@ void Diagramme::refreshFrise()
 	
 	float largeur = 0.8 * imgDiagramme.width();
 	int hauteur = 0.1 * imgDiagramme.height();
-	echelle =  largeur/ duree;
+	if (duree != 0)
+	{
+		echelle = largeur / duree;
+	}
+	else
+	{
+		echelle = 0;
+	}
 
 	imgFrise.clear();
-	imgFrise.resize(largeur, hauteur);
-
+	imgFrise(largeur, hauteur,1,3);
 	imgFrise.draw_rectangle(0, 0,largeur, hauteur,blue);
 	int positionTrait;
 	for (int i = 0; i < duree; i++)
@@ -238,9 +257,15 @@ void Diagramme::refreshMenu()
 	float largeur = 0.2 * imgDiagramme.width();
 	int hauteur = imgDiagramme.height();
 	imgMenu.clear(); 
-	imgMenu.resize(largeur, hauteur);
+	imgMenu(largeur, hauteur,1,3);
+	imgMenu.draw_rectangle(0, 0, largeur, hauteur, white);
 	imgMenu.draw_text(0, 0, "Diagramme de Gantt", imgFrise.height(), black);
-	int tailleParElement = (imgDiagramme.height() - imgFrise.height()) / nombreElements;
+	int tailleParElement = 0;
+	if (nombreElements != 0)
+	{
+		tailleParElement = (imgDiagramme.height() - imgFrise.height()) / nombreElements;
+	}
+
 	int positionYElement = imgFrise.height();
 	list<Categorie>::iterator itCategorie;
 	list<Tache>::iterator itTache;
@@ -255,17 +280,34 @@ void Diagramme::refreshMenu()
 		imgMenu.draw_text(0, positionYElement ,tab , tailleParElement, red); // Ecrit sur le menu le nom de la catégorie
 
 		positionYElement += tailleParElement; // On se déplace de la taille d'un élément vers le bas, pour écrire le prochain element
-		for (itTache = (*itCategorie).getListeTache().begin(); itTache!= (*itCategorie).getListeTache().end(); itTache++) // On parcout la liste des taches pour chaque catégorie
+		if (!(*itCategorie).getListeTache().empty())
 		{
-			temp = (*itTache).getNom(); // tempstocke le nom de la catégorie actuelle
-			char* tab = new char[temp.length() + 1]; // creation d'un tableau de caractere qui pourront etre ecrit dans le menu
-			strcpy_s(tab, temp.length() + 1, temp.c_str()); // Permet de copier 
+			for (itTache = (*itCategorie).getListeTache().begin(); itTache != (*itCategorie).getListeTache().end(); itTache++) // On parcout la liste des taches pour chaque catégorie
+			{
+				temp = (*itTache).getNom(); // tempstocke le nom de la catégorie actuelle
+				char* tab = new char[temp.length() + 1]; // creation d'un tableau de caractere qui pourront etre ecrit dans le menu
+				strcpy_s(tab, temp.length() + 1, temp.c_str()); // Permet de copier 
 
-			imgMenu.draw_text(0, positionYElement, tab, tailleParElement, blue); // Ecrit sur le menu le nom de la tache
+				imgMenu.draw_text(0, positionYElement, tab, tailleParElement, blue); // Ecrit sur le menu le nom de la tache
 
-			positionYElement += tailleParElement; // On se déplace de la taille d'un élément vers le bas, pour écrire le prochain element
+				positionYElement += tailleParElement; // On se déplace de la taille d'un élément vers le bas, pour écrire le prochain element
 
+			}
 		}
 
 	}
+}
+
+void Diagramme::refreshDiagramme()
+{
+
+	imgDiagramme.clear();
+	imgDiagramme(1920, 1080, 1, 3);
+	//refreshCalendrier();
+	refreshFrise();
+	refreshMenu();
+
+	imgDiagramme.draw_image(0, 0, imgMenu);
+	imgDiagramme.draw_image(positionFrise[0], positionFrise[1], imgFrise);
+	//imgDiagramme.draw_image(positionCalendrier[0], positionCalendrier[1], imgCalendrier);
 }

@@ -128,14 +128,10 @@
   <ItemGroup>
     <ClCompile Include="categorie.cpp" />
     <ClCompile Include="diagramme.cpp" />
-    <ClCompile Include="example3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="tache.cpp" />
     <ClCompile Include="temps.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="test_kfa2_geforce_gtx_1070_hof_box_3.ppm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

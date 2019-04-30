@@ -5,17 +5,18 @@ Tache::Tache(bool estChargee)
 	if (!estChargee)
 	{
 		cout << "Saisir nom de la tache" << endl;
-		cin >> nom_;
+		// Vide le tampon du clavier.
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, nom_);
 		cout << "Saisir la date de debut (appuyez sur entree entre le jour, le mois et l'annee" << endl;
 		int jour, mois, annee;
 		cin >> jour;
-		dateDebut_.setJour(jour);
 		cin >> mois;
-		dateDebut_.setMois(mois);
 		cin >> annee;
-		dateDebut_.setAnnee(annee);
+		Temps tempsTemp(jour, mois, annee);
+		dateDebut_ = tempsTemp;
 		cout << "Saisir la duree (en jour)" << endl;
-		cin >> duree_;
+		duree_ = saisieEntier();
 		Faisable = false;
 		Fait = false;
 		numero_ = 1;
@@ -64,8 +65,10 @@ void Tache::charger(ifstream& ifs)
 {
 	if (!ifs.is_open()) cout << "erreur ouverture" << endl;
 	else
-	{
-		ifs >> nom_;
+	{	
+		// Vide le tampon du clavier.
+		ifs.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(ifs, nom_);
 		ifs >> duree_;
 		ifs >> Faisable;
 		ifs >> Fait;

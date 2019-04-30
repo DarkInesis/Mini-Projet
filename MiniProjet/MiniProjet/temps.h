@@ -22,3 +22,5 @@ public:
 	void charger(ifstream& ifs) { ifs >> jour_; ifs >> mois_; ifs >> annee_; }
 };
 
+int saisieEntier();
+
