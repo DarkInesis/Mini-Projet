@@ -193,11 +193,12 @@ void Categorie::changementDates()
 	dureeTotale = dateFin_ - dateDebut;
 }
 
-void Categorie::imgCategorie() {
+void Categorie::imgCategorie(int echelleX , int echelleY) {
+	const unsigned char black[] = { 0,0,0 }, red[] = { 255,0,0 };
 	string temp = nom_;
 	char* tab = new char[temp.length() + 1];
 	strcpy_s(tab, temp.length() + 1, temp.c_str());
-	imageCategorie.resize(dureeTotale, 100);
-	const unsigned char black[] = { 0,0,0 };
+	imageCategorie.resize(dureeTotale * echelleX, echelleY);
+	imageCategorie.draw_rectangle(0, 0, imageCategorie.width(), imageCategorie.height(), red);
 	imageCategorie.draw_text(20, 20, tab, black);
 }

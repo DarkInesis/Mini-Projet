@@ -19,7 +19,8 @@ void afficherMenu()
 
 void menu(Diagramme diagr, CImgDisplay &disp)
 {
-	//diagr.refreshDiagramme();
+	diagr.refreshDiagramme();
+	disp.display(diagr.getImgDiagramme());
 	afficherMenu();
 	int choix = 0;
 	choix = saisieEntier();
@@ -85,7 +86,7 @@ void menu(Diagramme diagr, CImgDisplay &disp)
 		if (reponsefermeture == "y" || reponsefermeture =="Y"|| reponsefermeture =="o"|| reponsefermeture =="O")
 		
 		{
-			string chemin = "C:/Users/leode/Documents/MiniProjet/Sauvegarde/";
+			string chemin = "Sauvegarde/";
 			cout << "Entrer le nom du fichier de sauvegarde" << endl;
 			string nomSauvegarde;
 			cin >> nomSauvegarde;
@@ -112,7 +113,7 @@ void menu(Diagramme diagr, CImgDisplay &disp)
 		nomFichierCharge += ".txt";
 		if (true)
 		{
-			string chemin = "C:/Users/leode/Documents/MiniProjet/Sauvegarde/";
+			string chemin = "Sauvegarde/";
 			chemin += nomFichierCharge;
 			ifstream fichierCharger(chemin);
 			if (!fichierCharger.is_open())

@@ -23,7 +23,6 @@ Temps::Temps(int jour, int mois, int annee)
 		jour = saisieEntier();
 	}
 	jour_ = jour;
-	annee = saisieEntier();
 	annee_ = annee;
 }
 

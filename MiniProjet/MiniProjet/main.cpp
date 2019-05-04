@@ -16,7 +16,6 @@ int main()
 	// Declare a display
 	Diagramme diag1;
 	CImgDisplay disp(diag1.getImgDiagramme());
-	disp.resize();
 	// Wait for the display window to close
 	/*while (!disp.is_closed()) {
 		disp.wait();

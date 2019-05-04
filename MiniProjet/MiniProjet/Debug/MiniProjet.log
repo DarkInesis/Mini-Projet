@@ -1,4 +1,25 @@
 ﻿  categorie.cpp
-C:\Users\leode\Documents\MiniProjet\MiniProjet\categorie.cpp(54): warning C4018: '>=' : incompatibilité signed/unsigned
-C:\Users\leode\Documents\MiniProjet\MiniProjet\categorie.cpp(106): warning C4018: '>' : incompatibilité signed/unsigned
+c:\users\leode\documents\miniprojet\miniprojet\categorie.cpp(54): warning C4018: '>=' : incompatibilité signed/unsigned
+c:\users\leode\documents\miniprojet\miniprojet\categorie.cpp(106): warning C4018: '>' : incompatibilité signed/unsigned
+  diagramme.cpp
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(232): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(233): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(236): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(243): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(245): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(246): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(247): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(288): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(291): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(292): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(296): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(340): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(341): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(345): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+c:\users\leode\documents\miniprojet\miniprojet\diagramme.cpp(346): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+  main.cpp
+  menu.cpp
+  tache.cpp
+  temps.cpp
+  Génération de code en cours...
   MiniProjet.vcxproj -> C:\Users\leode\Documents\MiniProjet\Debug\MiniProjet.exe

@@ -156,7 +156,7 @@ void Diagramme::sauver(ofstream& ofs)
 	ofs << listeCategorie.size() << endl;
 	for (it = listeCategorie.begin(); it != listeCategorie.end(); it++)
 	{
-		(*it).sauver(ofs);
+		(*it).sauver(ofs); 
 	}
 }
 void Diagramme::charger(ifstream& ifs)
@@ -226,9 +226,9 @@ void Diagramme::modifierTache()
 void Diagramme::refreshFrise()
 {
 	const unsigned char blue[] = { 0,0,255 }, white[] = { 255,255,255 }, black[] = { 0,0,0 };
-
+	changementDates();
 	calculDuree();
-	
+
 	float largeur = 0.8 * imgDiagramme.width();
 	int hauteur = 0.1 * imgDiagramme.height();
 	if (duree != 0)
@@ -240,8 +240,39 @@ void Diagramme::refreshFrise()
 		echelle = 0;
 	}
 
+	positionFrise[0] = 0.2 * imgDiagramme.width()+1;
 	imgFrise.clear();
-	imgFrise(largeur, hauteur,1,3);
+	imgFrise.resize(largeur, hauteur, 1, 3);
+	imgFrise.draw_rectangle(0, 0, largeur, hauteur, white);
+	imgFrise.draw_line(0,hauteur,largeur,hauteur,black);
+	int positionTrait;
+	for (int i = 0; i < duree; i++)
+	{
+		positionTrait = i * echelle;
+		imgFrise.draw_line(positionTrait, 0, positionTrait, hauteur, black);
+	}
+
+}
+/*void Diagramme::refreshFrise()
+{
+	const unsigned char blue[] = { 0,0,255 }, white[] = { 255,255,255 }, black[] = { 0,0,0 };
+
+	calculDuree();
+	
+	float largeur = 0.8 * imgDiagramme.width();
+	int hauteur = 0.1 * imgDiagramme.height();
+	positionFrise[0] = 0.2*imgDiagramme.width();
+	if (duree != 0)
+	{
+		echelle = largeur / duree;
+	}
+	else
+	{
+		echelle = 0;
+	}
+
+	imgFrise.clear();
+	imgFrise.resize(largeur, hauteur, 1, 3);
 	imgFrise.draw_rectangle(0, 0,largeur, hauteur,blue);
 	int positionTrait;
 	for (int i = 0; i < duree; i++)
@@ -249,7 +280,7 @@ void Diagramme::refreshFrise()
 		positionTrait = i * echelle;
 		imgFrise.draw_line(positionTrait, 0, positionTrait, hauteur, black);
 	}
-}
+}*/
 
 void Diagramme::refreshMenu()
 {
@@ -257,9 +288,12 @@ void Diagramme::refreshMenu()
 	float largeur = 0.2 * imgDiagramme.width();
 	int hauteur = imgDiagramme.height();
 	imgMenu.clear(); 
-	imgMenu(largeur, hauteur,1,3);
+	imgMenu.resize(largeur, hauteur, 1, 3);
 	imgMenu.draw_rectangle(0, 0, largeur, hauteur, white);
-	imgMenu.draw_text(0, 0, "Diagramme de Gantt", imgFrise.height(), black);
+	int tailletext = imgFrise.height() / 3;
+	imgMenu.draw_text(40, (imgFrise.height()-tailletext)/2, "Diagramme de Gantt", black, 0, 1,tailletext);
+	imgMenu.draw_line(0, imgFrise.height(), imgMenu.width(), imgFrise.height(), black);
+	imgMenu.draw_line(largeur-1,0, largeur-1, hauteur, black);
 	int tailleParElement = 0;
 	if (nombreElements != 0)
 	{
@@ -270,44 +304,58 @@ void Diagramme::refreshMenu()
 	list<Categorie>::iterator itCategorie;
 	list<Tache>::iterator itTache;
 	string temp;
+	list<Tache> listeTacheTemp;
+	int tailletextElements = tailleParElement/ 3;
 	for (itCategorie = listeCategorie.begin(); itCategorie != listeCategorie.end(); itCategorie++) //On parcourt la liste de catégorie
 	{
 		//On affiche le nom de la catégorie
 		temp = (*itCategorie).getNom(); // tempstocke le nom de la catégorie actuelle
 		char* tab = new char[temp.length() + 1]; // creation d'un tableau de caractere qui pourront etre ecrit dans le menu
 		strcpy_s(tab, temp.length() + 1, temp.c_str()); // Permet de copier 
-
-		imgMenu.draw_text(0, positionYElement ,tab , tailleParElement, red); // Ecrit sur le menu le nom de la catégorie
+		imgMenu.draw_text(40, positionYElement, tab, red, 0, 1, tailletextElements); // Ecrit sur le menu le nom de la catégorie
 
 		positionYElement += tailleParElement; // On se déplace de la taille d'un élément vers le bas, pour écrire le prochain element
+		imgMenu.draw_line(0, positionYElement, imgMenu.width(), positionYElement, black);// On trace une ligne sous la catégorie
 		if (!(*itCategorie).getListeTache().empty())
 		{
-			for (itTache = (*itCategorie).getListeTache().begin(); itTache != (*itCategorie).getListeTache().end(); itTache++) // On parcout la liste des taches pour chaque catégorie
+			listeTacheTemp = (*itCategorie).getListeTache();
+			for (itTache = listeTacheTemp.begin(); itTache != listeTacheTemp.end(); itTache++) // On parcour la liste des taches pour chaque catégorie
 			{
-				temp = (*itTache).getNom(); // tempstocke le nom de la catégorie actuelle
+				temp = (*itTache).getNom(); // temp stocke le nom de la catégorie actuelle
 				char* tab = new char[temp.length() + 1]; // creation d'un tableau de caractere qui pourront etre ecrit dans le menu
 				strcpy_s(tab, temp.length() + 1, temp.c_str()); // Permet de copier 
 
-				imgMenu.draw_text(0, positionYElement, tab, tailleParElement, blue); // Ecrit sur le menu le nom de la tache
-
+				imgMenu.draw_text(40, positionYElement , tab, blue, 0, 1, tailletextElements); // Ecrit sur le menu le nom de la tache
 				positionYElement += tailleParElement; // On se déplace de la taille d'un élément vers le bas, pour écrire le prochain element
-
+				imgMenu.draw_line(0, positionYElement, imgMenu.width(), positionYElement, black); // On trace une ligne sous la tache
 			}
 		}
 
 	}
 }
 
+void Diagramme::refreshCalendrier()
+{
+	const unsigned char blue[] = { 0,0,255 }, white[] = { 255,255,255 }, black[] = { 0,0,0 };
+	float largeur = 0.8 * imgDiagramme.width();
+	int hauteur = 0.9 * imgDiagramme.height();
+	positionCalendrier[0] =imgMenu.width()+1;
+	positionCalendrier[1] =imgFrise.height()+1;
+	imgCalendrier.clear();
+	imgCalendrier.resize(largeur, hauteur, 1, 3);
+	imgCalendrier.draw_rectangle(0, 0, largeur, hauteur, white);
+}
+
 void Diagramme::refreshDiagramme()
 {
 
 	imgDiagramme.clear();
-	imgDiagramme(1920, 1080, 1, 3);
-	//refreshCalendrier();
+	imgDiagramme.resize(1920, 1080, 1, 3);
+	
 	refreshFrise();
 	refreshMenu();
-
+	refreshCalendrier();
 	imgDiagramme.draw_image(0, 0, imgMenu);
 	imgDiagramme.draw_image(positionFrise[0], positionFrise[1], imgFrise);
-	//imgDiagramme.draw_image(positionCalendrier[0], positionCalendrier[1], imgCalendrier);
+	imgDiagramme.draw_image(positionCalendrier[0], positionCalendrier[1], imgCalendrier);
 }
