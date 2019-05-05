@@ -5,15 +5,9 @@ Categorie::Categorie(bool estChargee)
 	if (!estChargee)
 	{
 		cout << "Nom  de la categorie :" << endl;
-		cin >> nom_;
-		cout << "Date de debut (jour puis mois puis annee) :" << endl;
-		int jour, mois, an;
-		cin >> jour;
-		cin >> mois;
-		cin >> an;
-		dateDebut.setJour(jour);
-		dateDebut.setMois(mois);
-		dateDebut.setAnnee(an);
+		// Vide le tampon du clavier.
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, nom_);
 		dureeTotale = 0; //permet de mettre à 0 la durée totale
 	}
 	else
@@ -37,53 +31,43 @@ void Categorie::afficherListeTaches()
 
 }
 
-void Categorie::calculDuree()
-{
-	list<Tache>::iterator it;
-	dureeTotale = 0;
-	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
-	{
-		dureeTotale += (*it).getDuree(); // ajoute la durée de la tache à la variable dureeTotale
-	}
-}
 
 void Categorie::insererTache()
 {
-	cout << "Entrer la position ou inserer la Tache" << endl;
+	cout << "Entrer la position ou inserer la Tache" << "(inferieur a " << listeTaches.size() + 1 << ")" << endl;
 	unsigned int position = 0;
-	cin >> position;
+	position = saisieEntier();
 	list<Tache>::iterator it; // iterateur permettant de parcourir la liste de tâche lors de la recherche de la bonne position
 	list<Tache>::iterator itmodifposition; // iterateur permettant de parcourir le reste de la liste, car on souhaite augmenter de 1 la position de tous les autres taches
 	 
 	if (position <= listeTaches.size() && position>0)
 	{
 		Tache nouvTache;
+		int nombredeTaches = listeTaches.size();
 		for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 		{
-			if ((*it).getNumero() >= position)
-			{
-				(*it).modifierNumero((*it).getNumero() + 1);
-			}
-			if((*it).getNumero() == position)
-			{
-				listeTaches.insert(it, nouvTache);
-				nouvTache.modifierNumero(position);
-			}
-
+				if ((*it).getNumero() == position && nombredeTaches==listeTaches.size())// Cas ou l'on a pas encore augmenter la taille de la liste et ou l'on est a la bonne position
+				{
+					it = listeTaches.insert(it, nouvTache);
+					(*it).modifierNumero(position);
+				}
+				else if ((*it).getNumero() >= position) // Apres insertion on modifie les numéros des taches suivantes
+				{
+					(*it).modifierNumero((*it).getNumero() + 1);
+				}
 		}
-		calculDuree();
+
 	}
-	if ((listeTaches.size() == 0 || position == listeTaches.size()+1)&& position<=listeTaches.size()+1) // cas où l'on créer la premiere tache ou lorsque l'on veut mettre la tache à la fin de la liste
+	else if ((listeTaches.size() == 0 || position == listeTaches.size()+1)&& position<=listeTaches.size()+1) // cas où l'on créer la premiere tache ou lorsque l'on veut mettre la tache à la fin de la liste
 	{
 		Tache nouvTache;
+		nouvTache.modifierNumero(listeTaches.size() + 1);
 		listeTaches.push_back(nouvTache);
-		nouvTache.modifierNumero(listeTaches.size());
-		calculDuree();
 	}
-	if (position > listeTaches.size()+1)
+	else if (position > listeTaches.size()+1)
 	{
 		cout << "Position superieure au nombre total de taches, pour annuler taper -1" << endl;
-		cout << "veuillez saisir une position acceptable (inferieur a " << listeTaches.size()+1 << ")" << endl;
+		
 		cin >> position; // L'utilisateur rentre une position acceptable (si ce n'est pas le cas, il y a une boucle jusqu'à ce qu'il le fasse
 		if (position == -1)
 		{
@@ -111,23 +95,26 @@ void Categorie::supprimerTache()
 		{
 			if ((*it).getNumero() == position)
 			{
-				listeTaches.erase(it); // Si on tombe sur la tache ayant le bon numéro, on la supprime
+				it=listeTaches.erase(it); // Si on tombe sur la tache ayant le bon numéro, on la supprime
 				break; // On break, c'est à dire qu'on sort de la boucle for, car à cause du erase, on a supprimer un element, la boucle for est donc buggée
 			}
 		}
-		for (it = listeTaches.begin(); it != listeTaches.end(); it++) // On va ici modifier la position des taches étant après celle qu'on vient de supprimer
+		if (!listeTaches.empty())
 		{
-			if ((*it).getNumero() > position)
+			for (it = listeTaches.begin(); it != listeTaches.end(); it++) // On va ici modifier la position des taches étant après celle qu'on vient de supprimer
 			{
-				(*it).modifierNumero((*it).getNumero() - 1);
+				if ((*it).getNumero() > position)
+				{
+					(*it).modifierNumero((*it).getNumero() - 1);
+				}
 			}
 		}
 	}
-	if (position == listeTaches.size()) // On supprime la derniere tache
+	else if (position == listeTaches.size()) // On supprime la derniere tache
 	{
 		listeTaches.pop_back(); 
 	}
-	if (position<=0 || position > listeTaches.size() + 1)
+	else if (position<=0 || position >= listeTaches.size() + 1)
 	{
 		cout << "Position superieure au nombre total de taches, pour annuler taper -1" << endl;
 		cout << "veuillez saisir une position acceptable (inferieur a " << listeTaches.size() << ")" << endl;
@@ -140,7 +127,6 @@ void Categorie::supprimerTache()
 			supprimerTache();  // On appelle de nouveau la fonction, ce qui permet d'inserer la tache si la position est correcte, sinon lui redemande une position
 		}
 	}
-	calculDuree();
 	changementDates();
 }
 
@@ -170,7 +156,9 @@ void Categorie::sauver(ofstream& ofs)
 
 void Categorie::charger(ifstream& ifs)
 {
-	ifs >> nom_;
+	// Vide le tampon du clavier.
+	ifs.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(ifs,nom_);
 	ifs >> dureeTotale;
 	dateDebut.charger(ifs);
 	dateFin_.charger(ifs);
@@ -193,22 +181,24 @@ void Categorie::changementDates()
 	dateFin_ = (*it).getFin();
 	for (it = listeTaches.begin(); it != listeTaches.end(); it++)
 	{
-		if ((*it).getDebut() < dateDebut)
+		if (((*it).getDebut()- dateDebut)<0)
 		{
 			dateDebut = (*it).getDebut();
 		}
-		if ((*it).getFin() > dateFin_)
+		if (((*it).getFin()- dateFin_)>0)
 		{
 			dateFin_ = (*it).getFin();
 		}
 	}
+	dureeTotale = dateFin_ - dateDebut;
 }
 
-void Categorie::imgCategorie() {
+void Categorie::imgCategorie(int echelleX , int echelleY) {
+	const unsigned char black[] = { 0,0,0 }, red[] = { 255,0,0 };
 	string temp = nom_;
 	char* tab = new char[temp.length() + 1];
 	strcpy_s(tab, temp.length() + 1, temp.c_str());
-	imageCategorie.resize(dureeTotale, 100);
-	const unsigned char black[] = { 0,0,0 };
+	imageCategorie.resize(dureeTotale * echelleX, echelleY);
+	imageCategorie.draw_rectangle(0, 0, imageCategorie.width(), imageCategorie.height(), red);
 	imageCategorie.draw_text(20, 20, tab, black);
 }

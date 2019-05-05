@@ -17,12 +17,13 @@ void afficherMenu()
 	cout << "9) Charger" << endl;
 }
 
-void menu(Diagramme diagr)
+void menu(Diagramme diagr, CImgDisplay &disp)
 {
-
+	diagr.refreshDiagramme();
+	disp.display(diagr.getImgDiagramme());
 	afficherMenu();
 	int choix = 0;
-	cin >> choix;
+	choix = saisieEntier();
 	string nomCategorie="";
 	string reponsefermeture;
 	string nomFichierCharge;
@@ -32,42 +33,48 @@ void menu(Diagramme diagr)
 		system("cls");
 		diagr.afficherDiagramme();
 		system("pause");
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	case 2 :
 		system("cls");
 		cout << "Entrer le nom de la categorie a afficher" << endl;
-		cin >> nomCategorie;
+		// Vide le tampon du clavier.
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, nomCategorie);
 		diagr.afficherTacheCategorie(nomCategorie);
 		system("pause");
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	case 3 :
 		system("cls");
 		diagr.insererCategorie();
 		system("pause");
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	case 4 :
 		system("cls");
 		cout << "Entrer le nom de la categorie ou ajouter la tache" << endl;
-		cin >> nomCategorie;
+		// Vide le tampon du clavier.
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, nomCategorie);
 		diagr.insererTacheCategorie(nomCategorie);
 		system("pause");
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	case 5 :
 		system("cls");
 		diagr.supprimerCategorie();
 		system("pause");
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	case 6 : 
 		system("cls");
 		cout << "Entrer le nom de la categorie ou enlever la tache" << endl;
-		cin >> nomCategorie;
+		// Vide le tampon du clavier.
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		getline(cin, nomCategorie);
 		diagr.supprimerTacheCategorie(nomCategorie);
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	case 7 :
 		diagr.modifierTache();
@@ -75,13 +82,17 @@ void menu(Diagramme diagr)
 	case 8 :
 		cout << "Voulez-vous sauvegarder votre fichier ? (y/n)" << endl;
 		cin >> reponsefermeture;
+		
 		if (reponsefermeture == "y" || reponsefermeture =="Y"|| reponsefermeture =="o"|| reponsefermeture =="O")
+		
 		{
+			string chemin = "Sauvegarde/";
 			cout << "Entrer le nom du fichier de sauvegarde" << endl;
 			string nomSauvegarde;
 			cin >> nomSauvegarde;
 			nomSauvegarde += ".txt";
-			ofstream fichierSauvegarde(nomSauvegarde);
+			chemin += nomSauvegarde;
+			ofstream fichierSauvegarde(chemin);
 			diagr.sauver(fichierSauvegarde);
 			break;
 		}
@@ -89,7 +100,7 @@ void menu(Diagramme diagr)
 			if (reponsefermeture != "n" && reponsefermeture != "N")
 			{
 				cout << "Erreur : touche non attribuee" << endl;
-				menu(diagr);
+				menu(diagr, disp);
 				break;
 			}
 			else
@@ -102,19 +113,21 @@ void menu(Diagramme diagr)
 		nomFichierCharge += ".txt";
 		if (true)
 		{
-			ifstream fichierCharger(nomFichierCharge);
+			string chemin = "Sauvegarde/";
+			chemin += nomFichierCharge;
+			ifstream fichierCharger(chemin);
 			if (!fichierCharger.is_open())
 			{
 				cout << "erreur chargement" << endl;
 			}
 			diagr.charger(fichierCharger);
 		}
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	default:
 		cout << "Nombre rentre invalide, recommencez" << endl;
 		system("pause");
-		menu(diagr);
+		menu(diagr, disp);
 		break;
 	}
 

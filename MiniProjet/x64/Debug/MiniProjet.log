@@ -1,0 +1,20 @@
+﻿  diagramme.cpp
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(236): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(237): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(240): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(247): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(249): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(250): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(251): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(255): warning C4101: 'anneeTemp' : variable locale non référencée
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(255): warning C4101: 'jourTemp' : variable locale non référencée
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(255): warning C4101: 'moisTemp' : variable locale non référencée
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(275): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(278): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(279): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(283): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(327): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(328): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(332): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+C:\Users\Temporaire\Documents\MiniProjet\MiniProjet\diagramme.cpp(333): warning C4244: 'argument' : conversion de 'float' en 'const int', perte possible de données
+  MiniProjet.vcxproj -> C:\Users\Temporaire\Documents\MiniProjet\x64\Debug\MiniProjet.exe

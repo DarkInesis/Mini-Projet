@@ -8,8 +8,21 @@ Temps::Temps()
 
 Temps::Temps(int jour, int mois, int annee)
 {
-	jour_ = jour;
+	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	while (mois > 12 || mois<=0)
+	{
+		cout << "mois entre incorrect" << endl;
+		cout << "Veuillez saisir un mois inferieur a " << 12 << endl;
+		mois =saisieEntier();
+	}
 	mois_ = mois;
+	while (jour > jourParMois[mois] || jour<=0)
+	{
+		cout << "Jour entre incorrect" << endl;
+		cout << "Veuillez saisir un jour inferieur a " << jourParMois[mois] << endl;
+		jour = saisieEntier();
+	}
+	jour_ = jour;
 	annee_ = annee;
 }
 
@@ -24,13 +37,17 @@ void Temps::afficherTemps()
 {
 	std::cout << jour_ << "/" << mois_ << "/" << annee_ << std::endl;
 }
+string Temps::convertirString()
+{
+	return (to_string(jour_)+"/"+ to_string(mois_) +"/"+ to_string(annee_));
+}
 
 Temps Temps::dateFin(int duree)
 {
 	int jourParMois[13] = { -1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //Contient le nombre de jour par mois (la premiere case est initialisée à -1, car on ne souhaite pas l'utiliser)
 	Temps date;
 	int jourfin, moisfin, anneefin;
-	jourfin= duree+jour_;
+	jourfin= jour_+duree -1 ;// On compte le jour de début comme un jour
 	moisfin = mois_;
 	anneefin = annee_;
 	while (jourfin> jourParMois[moisfin])
@@ -121,4 +138,24 @@ int Temps::operator-(const Temps& t) { // t est la plus grande AUTEUR AMINE
 	duree1 += jour_;
 	duree2 += t.jour_;
 	duree = duree1 - duree2;
+	return duree;
+}
+
+int saisieEntier()
+{
+	int reponse;
+	while (!(cin >> reponse))
+	{
+		cout << "Erreur de saisie" << endl << "Recommencez" << endl;
+		if (!cin.eof())
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+		else
+		{
+			cin.clear();
+		}
+	}
+	return reponse;
 }
